@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora Financeira</title>
+</head>
+
+<body>
+  <div>
+    <h1>Perda por Temperatura Incorreta:</h1>
+
+    Simula quanto dinheiro o entreposto perde quando a temperatura sai da faixa ideal. <br> <br>
+
+    Informe a quantidade de caixas de banana que são armazenadas:
+    <input type="number" id="ipt1_qtdCaixas" /> <br>
+
+    Informe o peso médio de cada caixa (em kg):
+    <input type="number" id="ipt1_pesoCaixa" /> <br>
+
+    Informe o preço médio do kg da banana:
+    <input type="number" id="ipt1_precoKg" /> <br>
+
+    Informe o percentual de perda quando há falha de temperatura:
+    <input type="number" id="ipt1_percentualPerda" /> <br>
+
+    <button onclick="simular()">Simular Perda</button> <br> <br>
+
+    <div id="div1_resultado"></div>
+  </div>
+  <div>
+    <h1>Capacidade de Entreposto</h1>
+
+    Ajuda a estimar o valor financeiro total armazenado. <br> <br>
+
+    Informe a quantitade total de câmaras do entreposto:
+    <input type="number" id="ipt2_qtdCamaras" /> <br>
+
+    Informe a capacidade máxima de caixas por câmara:
+    <input type="number" id="ipt2_qtdCaixasPorCamara" /> <br>
+
+    Informe o preço médio do kilo da banana:
+    <input type="number" id="ipt2_precoKg" /> <br>
+
+    Informe o peso médio de cada caixa (em kg):
+    <input type="number" id="ipt2_pesoCaixa" /> <br>
+
+    <button onclick="calcular()">Calcular Capacidade</button> <br> <br>
+
+    <div id="div2_resultado"></div>
+  </div>
+  <div>
+    <h1>Risco por Falha de Monitoramento</h1>
+
+    Simula perdas se o sistema não detectar problemas rapidamente. <br> <br>
+
+    Informe a quantidade média de leituras manuais da temperatura por dia:
+    <input type="number" id="ipt3_qtdLeituraManual" /> <br>
+
+    Informe a quantidade de leituras diárias da temperatura que deseja do nosso sensor:
+    <input type="number" id="ipt3_qtdLeituraSensor"> <br>
+
+    Informe o percentual de perda por hora fora da temperatura ideal:
+    <input type="number" id="ipt3_percentualPerda" /> <br>
+
+    <button onclick="estimar()">Estimar Perda</button> <br> <br>
+
+    <div id="div3_resultado"></div>
+  </div>
+</body>
+
+</html>
+
+<script>
+  function simular() {
+    let qtdCaixas = Number(ipt1_qtdCaixas.value);
+    let pesoCaixa = Number(ipt1_pesoCaixa.value);
+    let precoKg = Number(ipt1_precoKg.value);
+    let percentualPerda = Number(ipt1_percentualPerda.value);
+
+    let qtdBananas = qtdCaixas * pesoCaixa;
+
+    let valorEstoque = qtdBananas * precoKg;
+    let valorPerdido = valorEstoque * percentualPerda / 100;
+
+    div1_resultado.innerHTML = `
+    Você informou que: <br>
+    - Seu entreposto armazena ${qtdCaixas} caixas de bananas; <br>
+    - Cada caixa de banana pesa ${pesoCaixa} kg; <br>
+    - O kilo da banana vale R$${precoKg}; <br>
+    - O percentual de perda é de ${percentualPerda}%. <br> <br>
+    O valor total de seu estoque é estimado em R$${valorEstoque}, porém você tem um prejuízo de R$${valorPerdido} devido a falhas no monitoramento da temperatura.
+    `;
+  }
+
+  function calcular() {
+    let qtdCamaras = Number(ipt2_qtdCamaras.value);
+    let qtdCaixasPorCamara = Number(ipt2_qtdCaixasPorCamara.value);
+    let precoKg = Number(ipt2_precoKg.value);
+    let pesoCaixa = Number(ipt2_pesoCaixa.value);
+
+    let totalCaixas = qtdCamaras * qtdCaixasPorCamara;
+    let totalKilos = totalCaixas * pesoCaixa;
+    let valorEstoque = totalKilos * precoKg;
+
+    div2_resultado.innerHTML = `
+    Você informou que: <br>
+    - A quantidade total de câmaras do entreposto é de ${qtdCamaras} câmaras; <br>
+    - Cada câmara suporta ${qtdCaixasPorCamara} caixas; <br>
+    - O preço por kilo da banana é de R$${precoKg}; <br>
+    - O peso médio de cada caixa é de ${pesoCaixa} kg. <br> <br>
+    Este entreposto consegue armazenar um total de ${totalCaixas} caixas, que dá cerca de ${totalKilos} kg de bananas, isto daria um total de R$${valorEstoque}   armazenado.
+    `;
+  }
+
+  function estimar() {
+    let qtdLeituraManual = Number(ipt3_qtdLeituraManual.value);
+    let percentualPerda = Number(ipt3_percentualPerda.value);
+    let qtdLeituraSensor = Number(ipt3_qtdLeituraSensor.value);
+    
+    let percentualDiferenca = qtdLeituraSensor * 100 / qtdLeituraManual;
+
+    let intervaloManual = 24 / qtdLeituraManual;
+    let intervaloSensor = 24 / qtdLeituraSensor;
+
+    let horasSemLeituraManual = intervaloManual * qtdLeituraManual;
+    let horasSemLeituraSensor = intervaloSensor * qtdLeituraSensor;
+
+    let perdaEstimadaManual = intervaloManual * percentualPerda; 
+    let perdaEstimadaSensor = intervaloSensor * percentualPerda; 
+
+    div3_resultado.innerHTML = `
+    Você informou que: <br>
+    - Faz ${qtdLeituraManual} leituras manuais da temperatura por dia; <br>
+    - Deseja que nosso sensor faça ${qtdLeituraSensor} por dia; <br>
+    - Perde ${percentualPerda}% por hora fora da temperatura ideal.
+    `;
+
+    if (percentualDiferenca > 100) {
+      div3_resultado.innerHTML += `<br> <br>
+      Isso significa que nosso sensor será ${percentualDiferenca - 100}% mais eficiente que seu sistema manual.
+      `;
+    }
+    else {
+      if (percentualDiferenca == 100) {
+        div3_resultado.innerHTML += `<br><br>
+        Isso significa que nosso sensor será identico ao seu sistema manual, porém, de maneira automática.
+        `;
+      }
+      else {
+        div3_resultado.innerHTML += `<br><br>
+        Isso significa que nosso sensor será ${100 - percentualDiferenca}% menos eficiente que seu sistema manual.
+        `;
+      }
+    }
+
+    div3_resultado.innerHTML += `<br>
+    Isso também significa que as câmaras ficam sem leituras durante ${intervaloManual}h entre cada verificação manual, com risco de perda de ${perdaEstimadaManual}% durante esse intervalo.<br><br>
+    Com nosso sensor, esse intervalo cai para ${intervaloSensor}h, reduzindo o risco para apenas ${perdaEstimadaSensor}% durante o intervalo.
+    `;
+  }
+</script>
