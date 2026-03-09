@@ -4,6 +4,79 @@
     <meta charset="UTF-8">
     <title>Simulador Financeiro - Monitoramento de Bananas</title>
 </head>
+<style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f5f5; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            color: #1c253c; 
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #1c253c;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box; /* Garante que o padding não aumente a largura */
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #efb661; /* Amarelo da SPTech [1] */
+            color: #1c253c;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #d9a552;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #efb661;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .destaque-negativo { color: #ED145B; font-weight: bold; } /* Cor de erro/alerta [2] */
+        .destaque-positivo { color: #27ae60; font-weight: bold; }
+    </style>
 <body>
 
 <div class="container">
@@ -50,3 +123,4 @@
 
 </body>
 </html>
+
