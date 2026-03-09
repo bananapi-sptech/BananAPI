@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+
+<body>
+    <h1>Calculadora de Relatório Mensal</h1>
+    Insira a quantidade de banana, em quilos, recebidas no entreposto neste mês: <br>
+    <input type="text" id="input_qtdbananas"> <br>
+    Insira a quantidade de câmaras frias que existem no seu entreposto: <br>
+    <input type="text" id="input_camara"> <br>
+
+    <button onclick=calcular()>Emitir Relatório</button>
+    <div id="div_mensagem"></div>
+</body>
+
+</html>
+
+<script>
+
+    let contador = 0
+
+    function calcular() {
+        contador = contador + 1;
+
+        let bananas = Number(input_qtdbananas.value)
+        let camaras = Number(input_camara.value)
+        let distribuicao = bananas / camaras
+        let porcentagem = distribuicao * 15
+
+        div_mensagem.innerHTML += ` <p>Relatório do mês ${contador} <br>
+        Neste mês, a quantidade de Bananas Nanicas recebidas no seu entreposto foi de: ${bananas}. <br>
+        Na distribuição, haviam ${distribuicao} bananas por câmara de resfriamento. <br>
+        Deste total, houve um aproveitamento de ${porcentagem} bananas, em uma estimativa de 15% <br>
+        de aproveitamento do total de produto perdido por falhas de cuidado pós-colheita em refrigeração.`
+
+    }
+</script>
