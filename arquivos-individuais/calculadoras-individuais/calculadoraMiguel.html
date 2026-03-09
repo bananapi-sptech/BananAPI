@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <h1>BananAPI</h1>
+    Data do lote:
+    <input type="text" id="input_data"> <br>
+    Valor da Compra :
+    <input type="text" id="input_valorcompra"> <br>
+    Quantos KG:
+    <input type="text" id="input_qtdCompra"> <br>
+    Quantidade Vendida:
+    <input type="text" id="input_QTDVendida"> <br>
+    Valor do KG na venda:
+    <input type="text" id="input_ValorKGVenda"> <br>
+    <button onclick="Calcular()">Calculadora</button>
+
+            <div id=div_mensagem></div>
+
+</body>
+</html>
+
+<script>
+function Calcular(){      
+let data = input_data.value
+let valordacompra =  Number(input_valorcompra.value)
+let qtdCompra = Number(input_qtdCompra.value)
+let qtdVendida = Number(input_QTDVendida.value)
+let KgVenda = Number(input_ValorKGVenda.value)
+
+
+let valorDOkg = valordacompra / qtdCompra
+let vendas = qtdVendida * KgVenda 
+let lucro = vendas - valordacompra
+let qtdPerdida = qtdCompra - qtdVendida
+let valornamesa = qtdPerdida * KgVenda
+let por100perda = (qtdPerdida / qtdCompra) * 100
+
+ if (qtdVendida > qtdCompra) {
+div_mensagem.innerHTML = `Erro: a quantidade vendida não pode ser maior que a comprada.`
+}
+
+if (qtdVendida == qtdCompra)
+
+div_mensagem.innerHTML = `Relatório do lote:`+ data  
++ `. O Preço do KG foi de R$` + valorDOkg + ` Você obteve um lucro de R$` + lucro 
+
+
+if (qtdVendida < qtdCompra)
+div_mensagem.innerHTML = `Relatório do lote: `+ data  
++ `. O Preço do KG foi de R$` + valorDOkg + ` Você obteve um lucro de R$` + lucro + `<br>` 
++ ` Taxa de perda do lote: ` + por100perda + 
+`%. Valor que deixou de ser faturado:` + valornamesa;
+
+
+
+}
+
+
+
+
+
+</script>
