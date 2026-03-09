@@ -48,15 +48,15 @@ remetente varchar(50)
 
 -- Insert & Select
 -- TABELA CADASTRO USUARIOS 
-insert cadastro_usuario value
+insert into cadastro_usuario (id, nome_empresa, nome_completo, cpf, cargo_usuario, email, senha) value
 (default, 'CEAGESP', 'Ana Beatriz Cavalcanti', '32198405021', 'Operador de Câmara Fria', 'anab.cavalcanti@email.com', 'anab87B6');
-insert cadastro_usuario value
+insert into cadastro_usuario (id, nome_empresa, nome_completo, cpf, cargo_usuario, email, senha) value
 (default, 'CEASA', 'Marcos Vinícius Oliveira', '65412398075', 'Técnico em Refrigeração', 'mvinicius.oliveira@email.com', 'mvini7#xa');
-insert cadastro_usuario value
+insert into cadastro_usuario (id, nome_empresa, nome_completo, cpf, cargo_usuario, email, senha) value
 (default, 'Entreposto MG', 'Letícia Guimarães Rosa', '98765432109', 'Responsável Técnico', 'leticia.grosa@email.com', 'let@5874');
-insert cadastro_usuario value
+insert into cadastro_usuario (id, nome_empresa, nome_completo, cpf, cargo_usuario, email, senha) value
 (default, 'bananasTop', 'Adriana Lima de Souza', '76545609812', 'Responsável Técnica', 'Adriana.Lima@bananaTop.com', 'Adriana987@1', default);
-insert cadastro_usuario value
+insert into cadastro_usuario (id, nome_empresa, nome_completo, cpf, cargo_usuario, email, senha) value
 (default, entrepostoBrasileiro, 'Maria Cristina Mendes', '98767895609', 'Operadora de camara fria', 'Maria.Cristina@entrepostoBrasil.com', 'Maria387Cristina*?', default);
 
 select * from cadastro_usuário;
