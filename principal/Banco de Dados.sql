@@ -48,26 +48,22 @@ remetente varchar(50)
 
 -- Insert & Select
 -- TABELA CADASTRO USUARIOS 
-insert cadastro_usuario value
-(default, 'CEAGESP', 'Ana Beatriz Cavalcanti', '32198405021', 'Operador de Câmara Fria', 'anab.cavalcanti@email.com', 'anab87B6');
-insert cadastro_usuario value
-(default, 'CEASA', 'Marcos Vinícius Oliveira', '65412398075', 'Técnico em Refrigeração', 'mvinicius.oliveira@email.com', 'mvini7#xa');
-insert cadastro_usuario value
-(default, 'Entreposto MG', 'Letícia Guimarães Rosa', '98765432109', 'Responsável Técnico', 'leticia.grosa@email.com', 'let@5874');
-insert cadastro_usuario value
-(default, 'bananasTop', 'Adriana Lima de Souza', '76545609812', 'Responsável Técnica', 'Adriana.Lima@bananaTop.com', 'Adriana987@1', default);
-insert cadastro_usuario value
-(default, entrepostoBrasileiro, 'Maria Cristina Mendes', '98767895609', 'Operadora de camara fria', 'Maria.Cristina@entrepostoBrasil.com', 'Maria387Cristina*?', default);
+insert into cadastro_usuario values
+(default, 'CEAGESP', 35298762159832, 'Ana Beatriz Cavalcanti', '32198405021', 'Operador de Câmara Fria', 'anab.cavalcanti@email.com', 'anab87B6*', default);
+insert into cadastro_usuario values
+(default, 'CEASA', 56498203769853, 'Marcos Vinícius Oliveira', '65412398075', 'Técnico em Refrigeração', 'mvinicius.oliveira@email.com', 'mvini7#xa', default);
+insert into cadastro_usuario values
+(default, 'Entreposto MG', 14298763022159, 'Letícia Guimarães Rosa', '98765432109', 'Responsável Técnico', 'leticia.grosa@email.com', 'let@5874', default);
+insert into cadastro_usuario values
+(default, 'bananasTop', 79850636812020, 'Adriana Lima de Souza', '76545609812', 'Responsável Técnica', 'Adriana.Lima@bananaTop.com', 'Adriana987@1', default);
+insert into cadastro_usuario values
+(default, 'entrepostoBrasileiro', 35626526265295, 'Maria Cristina Mendes', '98767895609', 'Operadora de camara fria', 'Maria.Cristina@entrepostoBrasil.com', 'Maria387Cristina*?', default);
 
-select * from cadastro_usuário;
-select nome_empresa, cnpj_empresa, nome_completo, cpf, email_usuario FROM cadastro usuário;
-update cadastro_usuario set email = 'adriana.Lima@bananatoop.com' where id = 5;
-select nome_empresa as 'Nome da empresa', nome_completo as 'Nome do funcionário',
- cnpj_empresa as 'CNPJ', cpf as CPF, cargo_usuário as 'Cargo do funcionário', 
- email_usuario as 'E-mail do funcionário' FROM cadastro usuário;
-select * from camaras;
+select * from cadastro_usuario;
+select nome_empresa, cnpj_empresa, nome_completo, cpf, email_usuario from cadastro_usuario;
+update cadastro_usuario set email_usuario = 'adriana.Lima@bananatoop.com' where id_usuario = 4;
+select nome_empresa as 'Nome da empresa', nome_completo as 'Nome do funcionário', cnpj_empresa as 'CNPJ', cpf as 'CPF', cargo_usuario as 'Cargo do funcionário', email_usuario as 'E-mail do funcionário' FROM cadastro_usuario;
 select nome_completo, email_usuario from cadastro_usuario;
-select registro_cadastro_funcionario from cadastro_usuario;
 
 -- TABELA CADASTRO CAMARAS 
 insert into camaras values
@@ -77,11 +73,10 @@ insert into camaras values
 (default, 308, 'Estocagem Pós-Colheita'),
 (default, 110, 'Climatização - Setor Norte');
 
-select setor where numero_camara >= 200;
-select numero_camara where setor like '%a';
 select * from camaras;
+select setor from camaras where numero_camara >= 200;
+select numero_camara from camaras where setor like '%a';
 select numero_camara as 'Número da camara', setor as 'Setor da camara' FROM camaras;
-ALTER TABLE distribuicao ADD COLUMN data_cadastro DATETIME DEFAULT current_timestamp;
 
 -- TABELA SENSOR
 insert into sensor values
@@ -91,12 +86,12 @@ insert into sensor values
 (default, 'DHT22', 29),
 (default, 'H3711', 07);
 
+select * from sensor;
 select * from sensor where numero_camara > 18;
 select modelo_sensor from sensor;
-select * from sensor;
 select * from sensor order by numero_camara;
 select id_sensor as 'id', modelo_sensor as 'Modelo do sensor', numero_camara as 'Número da câmara' from sensor;
-alter table distribuição add column data_cadastro DATETIME DEFAULT current_timestamp;
+
 
 -- TABELA TEMPERATURA 
 insert into temperatura (numero_camara, temperatura, datahora_temperatura) values
@@ -106,11 +101,19 @@ insert into temperatura (numero_camara, temperatura, datahora_temperatura) value
 (4, 13.9, curtime()),
 (5, 14.2, curtime());
 
+select * from temperatura;
 select temperatura from temperatura where id_temperatura = 3;
 select numero_camara, temperatura from temperatura;
 select * from temperatura where temperatura > 14;
-select * from temperatura;
 select id_temperatura as 'id', numero_camara as 'Número da câmara', temperatura as 'Temperatura', datahora_temperatura as 'Data do registro' from temperatura;
+
+SELECT id_temperatura AS 'id', numero_camara AS 'Número da câmara', temperatura AS 'Temperatura', datahora_temperatura AS 'Data do registro',
+CASE  
+WHEN temperatura < 13 THEN 'Risco chilling injury.' 
+WHEN temperatura >= 24 THEN 'Risco de maturação precoce.'
+ELSE 'Temperatura Ideal' 
+END AS 'Alerta de temperatura' FROM temperatura;
+
 
 -- TABELA DISTRIBUIÇÃO
 insert into distribuicao values
@@ -120,24 +123,16 @@ insert into distribuicao values
 (default, 'SEASA', 'RJ', '20', '122.90', 'Pão de açucar'),
 (default, 'Entreposto Amazonas', 'AM', '7', '133.00', 'Amazonas Super Mercado');
 
-update distribuicao set dt_compra = '2019-12-25' where id_distribuicao = 1;
-update distribuicao set dt_compra = '2026-10-04' where id_distribuicao = 2;
-update distribuicao set dt_compra = '2025-07-01' where id_distribuicao = 3;
-update distribuicao set dt_compra = '2024-01-22' where id_distribuicao = 4;
-update distribuicao set dt_compra = '2026-02-28' where id_distribuicao = 5;
-
+update distribuicao set qtd_lotes = 30 where id_distribuicao = 2;
+update distribuicao set qtd_lotes = 25 where id_distribuicao = 4;
 
 alter table distribuicao add constraint chkEstado check(estado in('AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 
 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI','PR', 'RJ', 'RN', 'RO', 'RS', 'RR', 'SC','SE', 'SP', 'TO'));
 
+alter table distribuicao add column data_cadastro datetime default current_timestamp;
 select * from distribuicao;
-alter table distribuição add column data_cadastro DATETIME DEFAULT current_timestamp;
-select * from distribuicao where recebedor like '%Mercado%';
-select nome_entreposto, estado, qtd_lotes from distribuicao where preco_lote >= 140;
-select id_distribuicao as 'id', nome_entreposto as 'Nome do entreposto', estado as 'Estado', qtd_lotes as 'Quantidade de lotes', 
-preco_lote as 'Preço do lote', recebedor as 'Recebedor', data_cadastro as 'Data do cadastro' FROM distruibuicao;
-
-
-
+select * from distribuicao where remetente like '%Mercado%';
+select nome_entreposto as 'Nome do entreposto', estado as 'Estado', qtd_lotes as 'Quantidade de lotes' from distribuicao where preco_lote >= 140;
+select id_distribuicao as 'id', nome_entreposto as 'Nome do entreposto', estado as 'Estado', qtd_lotes as 'Quantidade de lotes', preco_lote as 'Preço do lote', remetente as 'Remetente', data_cadastro as 'Data do cadastro' from distribuicao;
 
 
