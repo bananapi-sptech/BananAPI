@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="VitorStyle.css" />
+  </head>
+  <body>
+    <h1>Calculadora</h1>
+    <h2>Controle sobre maturação das bananas</h2>
+    <br />
+
+    <div class="container">
+      <div class="caixa pai">
+        <div class="caixa filho pergunta1">
+          Qual seu volume mensal de bananas?
+        </div>
+        <input type="number" id="ipt_volume_mensal" placeholder="Kg" /> <br />
+        <div class="caixa filho pergunta1">Qual o preço que voce paga?</div>
+        <input type="number" id="ipt_precoKg" placeholder="Por kg de banana" />
+        <br />
+        <div class="caixa filho pergunta3">
+          Qual sua atual porcentagem de perda?
+        </div>
+        <input type="number" id="ipt_perda" placeholder="Ex: 40 ou 60" /> <br />
+        <div class="caixa filho pergunta1">Qual preco pretende vedê-las ?</div>
+        <input
+          type="number"
+          id="ipt_preco_venda"
+          placeholder="Preço por kg de banana"
+        />
+        <br />
+        <button onclick="calcularPrejuizo()">Prejuizo atual</button> <br />
+        <button onclick="calcularRecuperacao()">Valor Recuperado</button>
+      </div>
+
+      <div id="mensagem"></div>
+    </div>
+  </body>
+</html>
+<script>
+  function calcularPrejuizo() {
+    let volumeMensal = Number(ipt_volume_mensal.value);
+    let precoKg = Number(ipt_precoKg.value);
+    let porcenPerda = Number(ipt_perda.value) / 100;
+    let precoVendas = Number(ipt_preco_venda.value);
+    let perdaKg = volumeMensal * porcenPerda;
+    let lucroPorKg = precoVendas - precoKg;
+    let prejuizo = perdaKg * lucroPorKg;
+
+    mensagem.innerHTML = `Você está deixando de lucrar <b style="color:red;">R$ ${prejuizo}</b> por mês!`;
+  }
+
+  function calcularRecuperacao() {
+    let volumeMensal = Number(ipt_volume_mensal.value);
+    let precoKg = Number(ipt_precoKg.value);
+    let porcenPerda = Number(ipt_perda.value) / 100;
+    let precoVendas = Number(ipt_preco_venda.value);
+
+    let valorRecuperado = volumeMensal * porcenPerda * 0.15 * precoVendas;
+    mensagem.innerHTML = `Valor recuperado = <b style = "color: green;">${valorRecuperado}</b> <br>Com um monitoramento ideal de temperatura,
+       podemos salvar <b style = "color: green;">15%</b> de suas perdas! `;
+  }
+</script>
