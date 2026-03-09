@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Calculadora</h1>
+    <h2>Controle sobre maturação das bananas</h2>
+    <div class="container">
+      <div class="caixa1">
+        <div class="perguntas">Volume mensal de bananas:</div>
+        <input type="number" id="input_qtdBananas" placeholder="Kg" /> <br />
+        <div class="perguntas">Quantidade de câmaras do entreposto:</div>
+        <input type="number" id="input_qtdCamara" placeholder="Utilizaveis" />
+        <br />
+        <div class="perguntas">Capacidade máxima de banana por câmara:</div>
+        <input type="number" id="input_capacidadeMax" placeholder="Kg" /> <br />
+        <div class="perguntas">Qual valor pretende vendê-las ?</div>
+        <input type="number" id="input_valorVenda" placeholder="R$" />
+        <br />
+        <button onclick="emitir()">Emitir o relátorio</button>
+      </div>
+
+      <div id="div_mensagem"></div>
+    </div>
+  </body>
+</html>
+<script>
+  function emitir() {
+    let bananas = Number(input_qtdBananas.value);
+    let camaras = Number(input_qtdCamara.value);
+    let qtdcamaras = Number(input_qtdCamara.value);
+    let valor = Number(input_valorVenda.value);
+
+    let distribuicao = bananas / qtdcamaras;
+    let aproveitamento = bananas * 0.15;
+    let vendasaproveitadas = valor * aproveitamento;
+    let vendas = bananas * 0.95 * valor;
+
+    div_mensagem.innerHTML = `
+     Neste mês, seu entreposto recebeu ${bananas} kg de Banana Nanica. <br>
+     Deste total, haviam ${distribuicao} kg por câmara de resfriamento. <br>
+     <br>
+     O aproveitamento de produto com o nosso serviço instalado foi de <b style = "color: green;">${aproveitamento}</b>,
+     aproximadamente <b style = "color: green;">15%</b>. <br>
+     resultando em R$ <b style = "color: green;">${vendasaproveitadas}</b>. <br>
+     <br>
+     Lucro total: R$<b style = "color: green;">${vendas}</b>`;
+  }
+</script>
