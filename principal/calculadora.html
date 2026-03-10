@@ -13,15 +13,18 @@
       <div class="caixa1">
         <div class="perguntas">Volume mensal de bananas:</div>
         <input type="number" id="input_qtdBananas" placeholder="Kg" /> <br />
-        <div class="perguntas">Qual sua atual porcentagem de perda:</div>
-        <input type="number" id="input_perda" placeholder="De 10 a 20" />
+        <div class="perguntas">Atual porcentagem de perda:</div>
+        <input type="number" id="input_perda" placeholder="EX 40 ou 60" />
         <br />
-        <div class="perguntas">Valor investido</div>
-        <input type="number" id="input_paga" placeholder="R$ porKg" /> <br />
-        <div class="perguntas">Qual valor pretende vendê-las ?</div>
+        <div class="perguntas">Valor investido:</div>
+        <input type="number" id="input_valorCompra" placeholder="R$ por Kg" />
+        <br />
+        <div class="perguntas">Valor pretendido na venda:</div>
         <input type="number" id="input_valorVenda" placeholder="R$ por Kg" />
         <br />
-        <button onclick="emitir()">Emitir o relátorio</button>
+        <button class="botao_cima" onclick="emitir()">
+          Emitir o relatório
+        </button>
       </div>
 
       <div id="div_mensagem"></div>
@@ -29,7 +32,51 @@
   </body>
 </html>
 <script>
+  let simulacao = 1;
+
+  /* explicando a parte da porcentagem. 
+  não podemos ignorar a quantidade de perda real do usuario
+  o usuario não vai querer saber o quanto da perda dele é por causa disso ou daquilo
+  ele só vai saber o total da perda, e nossa missao do projeto é reduzir 15 da atual porcentagem de perda
+  EXEMPLO: usuario tem perda de 40%, se ele usar nosso produto vamos salvar 15% do total
+  reduzindo sua perda de 40% para apenas 25%. 
+  */
+
   function emitir() {
-    //arrumando
+    let qtdBananas = Number(input_qtdBananas.value);
+    let perda = Number(input_perda.value);
+    let valorCompra = Number(input_valorCompra.value);
+    let valorVenda = Number(input_valorVenda.value);
+
+    // quantidade perdida atualmente
+    let perdaPorCem = qtdBananas * (perda / 100);
+
+    // faturamento atual
+    let quantoVende = qtdBananas - perdaPorCem;
+    let faturamentoAtual = quantoVende * valorVenda;
+
+    // vamos salvar 15%
+    let bananasSalvas = qtdBananas * 0.15;
+
+    // deixa de lucrar
+    let deixaDeLucrar = bananasSalvas * valorVenda;
+
+    // faturamento previsto
+    let faturamentoPrevisto = (quantoVende + bananasSalvas) * valorVenda;
+
+    div_mensagem.innerHTML += ` <b>Simulação: ${simulacao}</b> <br>
+    Sem nosso projeto:<br>
+    Você deixa de faturar aproximadamente 
+    <b style="color:red">R$ ${deixaDeLucrar}</b> por mês <br> 
+    Podemos reduzir sua perda de
+    <b style="color:red">${perda}%</b> para <b style="color:green">${perda - 15}%</b>.<br><br>
+
+    Nosso sistema pode evitar o desperdício de <br>
+    cerca de <b>${bananasSalvas} kg</b> de bananas mensalmente.<br><br>
+ 
+    <b style="color:red">R$ ${faturamentoAtual}</b> = Seu faturamento atual.<br>
+    <b style="color:green">R$ ${faturamentoPrevisto} </b>
+    = Seu faturamento com <b style="color:#deb500">BananAPI</b>. <br><br><br>`;
+    simulacao++;
   }
 </script>
