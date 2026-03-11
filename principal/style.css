@@ -75,6 +75,19 @@
     color: #5C5755;
   }
 
+  .botao_baixo{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    background-color: #F5F4DC;
+    color: #5C5755;
+    margin-top: 20px;
+    margin-right: 350px;
+  }
+
+
+
 
 
 

@@ -25,6 +25,7 @@
         <button class="botao_cima" onclick="emitir()">
           Emitir o relatório
         </button>
+        <button class="botao_baixo" onclick="reiniciar()">⟳</button>
       </div>
 
       <div id="div_mensagem"></div>
@@ -33,6 +34,11 @@
 </html>
 <script>
   let simulacao = 1;
+
+  function reiniciar() {
+    div_mensagem.innerHTML = ``;
+    simulacao = 1;
+  }
 
   /* explicando a parte da porcentagem. 
   não podemos ignorar a quantidade de perda real do usuario
@@ -56,7 +62,7 @@
     let faturamentoAtual = quantoVende * valorVenda;
 
     // vamos salvar 15%
-    let bananasSalvas = qtdBananas * 0.15;
+    let bananasSalvas = perdaPorCem * 0.15;
 
     // deixa de lucrar
     let deixaDeLucrar = bananasSalvas * valorVenda;
@@ -64,12 +70,15 @@
     // faturamento previsto
     let faturamentoPrevisto = (quantoVende + bananasSalvas) * valorVenda;
 
+    //porcentagem em cima da perda e não do total
+    let novaPorcentagem = perda * 0.85;
+
     div_mensagem.innerHTML += ` <b>Simulação: ${simulacao}</b> <br>
     Sem nosso projeto:<br>
     Você deixa de faturar aproximadamente 
     <b style="color:red">R$ ${deixaDeLucrar}</b> por mês <br> 
     Podemos reduzir sua perda de
-    <b style="color:red">${perda}%</b> para <b style="color:green">${perda - 15}%</b>.<br><br>
+    <b style="color:red">${perda}%</b> para <b style="color:green">${novaPorcentagem}%</b>.<br><br>
 
     Nosso sistema pode evitar o desperdício de <br>
     cerca de <b>${bananasSalvas} kg</b> de bananas mensalmente.<br><br>
