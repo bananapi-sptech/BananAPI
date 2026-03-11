@@ -39,14 +39,9 @@
     div_mensagem.innerHTML = ``;
     simulacao = 1;
   }
-
-  /* explicando a parte da porcentagem. 
-  não podemos ignorar a quantidade de perda real do usuario
-  o usuario não vai querer saber o quanto da perda dele é por causa disso ou daquilo
-  ele só vai saber o total da perda, e nossa missao do projeto é reduzir 15 da atual porcentagem de perda
-  EXEMPLO: usuario tem perda de 40%, se ele usar nosso produto vamos salvar 15% do total
-  reduzindo sua perda de 40% para apenas 25%. 
-  */
+  /* resumindo é assim:
+  pensa como se nosso produto é uma peneira fina,
+  que ao invés da perda por causa da temperatura passar com 20% iria deixar passar só 5%  */
 
   function emitir() {
     let qtdBananas = Number(input_qtdBananas.value);
@@ -54,38 +49,33 @@
     let valorCompra = Number(input_valorCompra.value);
     let valorVenda = Number(input_valorVenda.value);
 
-    // quantidade perdida atualmente
-    let perdaPorCem = qtdBananas * (perda / 100);
+    // NOVA LÓGICA DE PORCENTAGEM
+    let perdaBase = (perda * 100) / 120; // regra de 3, se perdaTotal = (ex) 60 = 120% da perda base. AQUI DESCOBRE QUAL É A BASE
+    let novaPorcentagem = perdaBase + perdaBase * 0.05; //SOMA perdaBase COM + 5% que é oque vai continuar sendo acrescentado
 
-    // faturamento atual
-    let quantoVende = qtdBananas - perdaPorCem;
-    let faturamentoAtual = quantoVende * valorVenda;
+    // PESO (KG)
+    let perdaPorCem = qtdBananas * (perda / 100); //calcula quanto ta perdendo sem o projeto
+    let novaPerdaKg = qtdBananas * (novaPorcentagem / 100); //perda prevista com o projeto
+    let bananasSalvas = perdaPorCem - novaPerdaKg; // faz a conta subtraindo o quanto perdia para o quanto vai perder, para ver a diferença de quanto vai ganhar
 
-    // vamos salvar 15%
-    let bananasSalvas = perdaPorCem * 0.15;
+    // FINANCEIRO
+    let faturamentoAtual = (qtdBananas - perdaPorCem) * valorVenda; //quanto fatura sem o projeto
+    let faturamentoPrevisto = (qtdBananas - novaPerdaKg) * valorVenda; // faturamento previsto com o projeto
+    let lucroExtra = bananasSalvas * valorVenda; // multiplica quantidade de bananas salva com o projeto pelovalor de venda pretendidio
 
-    // deixa de lucrar
-    let deixaDeLucrar = bananasSalvas * valorVenda;
-
-    // faturamento previsto
-    let faturamentoPrevisto = (quantoVende + bananasSalvas) * valorVenda;
-
-    //porcentagem em cima da perda e não do total
-    let novaPorcentagem = perda * 0.85;
-
-    div_mensagem.innerHTML += ` <b>Simulação: ${simulacao}</b> <br>
-    Sem nosso projeto:<br>
-    Você deixa de faturar aproximadamente 
-    <b style="color:red">R$ ${deixaDeLucrar}</b> por mês <br> 
-    Podemos reduzir sua perda de
+    //aqui não tem segredo. é nois
+    div_mensagem.innerHTML += ` <br> <b>Simulação: ${simulacao}</b> <br>
+    Com nosso projeto, reduzimos o impacto da temperatura na sua perda.<br>
+    Sua perda total cai de
     <b style="color:red">${perda}%</b> para <b style="color:green">${novaPorcentagem}%</b>.<br><br>
 
-    Nosso sistema pode evitar o desperdício de <br>
-    cerca de <b>${bananasSalvas} kg</b> de bananas mensalmente.<br><br>
+    Isso evita o desperdício de <b>${bananasSalvas} kg</b> de bananas mensalmente.<br><br>
  
     <b style="color:red">R$ ${faturamentoAtual}</b> = Seu faturamento atual.<br>
     <b style="color:green">R$ ${faturamentoPrevisto} </b>
-    = Seu faturamento com <b style="color:#deb500">BananAPI</b>. <br><br><br>`;
+    = Seu faturamento com <b style="color:#deb500">BananAPI</b>. <br>
+    Faturamento recuperado: <b style="color:green">R$ ${lucroExtra}</b> <br><br>`;
+
     simulacao++;
   }
 </script>
