@@ -39,9 +39,6 @@
     div_mensagem.innerHTML = ``;
     simulacao = 1;
   }
-  /* resumindo é assim:
-  pensa como se nosso produto é uma peneira fina,
-  que ao invés da perda por causa da temperatura passar com 20% iria deixar passar só 5%  */
 
   function emitir() {
     let qtdBananas = Number(input_qtdBananas.value);
@@ -49,25 +46,23 @@
     let valorCompra = Number(input_valorCompra.value);
     let valorVenda = Number(input_valorVenda.value);
 
-    // NOVA LÓGICA DE PORCENTAGEM
-    let perdaBase = (perda * 100) / 120; // regra de 3, se perdaTotal = (ex) 60 = 120% da perda base. AQUI DESCOBRE QUAL É A BASE
-    let novaPorcentagem = perdaBase + perdaBase * 0.05; //SOMA perdaBase COM + 5% que é oque vai continuar sendo acrescentado
+    // nosso projeto diminui 15% das perdas
+    let perdaComApi = perda * 0.85;
 
-    // PESO (KG)
-    let perdaPorCem = qtdBananas * (perda / 100); //calcula quanto ta perdendo sem o projeto
-    let novaPerdaKg = qtdBananas * (novaPorcentagem / 100); //perda prevista com o projeto
-    let bananasSalvas = perdaPorCem - novaPerdaKg; // faz a conta subtraindo o quanto perdia para o quanto vai perder, para ver a diferença de quanto vai ganhar
+    // Cálculo de kg
+    let kgPerdidosAtual = qtdBananas * (perda / 100);
+    let kgPerdidosComProjeto = qtdBananas * (perdaComApi / 100);
+    let bananasSalvas = kgPerdidosAtual - kgPerdidosComProjeto;
 
-    // FINANCEIRO
-    let faturamentoAtual = (qtdBananas - perdaPorCem) * valorVenda; //quanto fatura sem o projeto
-    let faturamentoPrevisto = (qtdBananas - novaPerdaKg) * valorVenda; // faturamento previsto com o projeto
-    let lucroExtra = bananasSalvas * valorVenda; // multiplica quantidade de bananas salva com o projeto pelovalor de venda pretendidio
+    // Cálculo Financeiro
+    let faturamentoAtual = (qtdBananas - kgPerdidosAtual) * valorVenda;
+    let faturamentoPrevisto = (qtdBananas - kgPerdidosComProjeto) * valorVenda;
+    let lucroExtra = bananasSalvas * valorVenda;
 
-    //aqui não tem segredo. é nois
     div_mensagem.innerHTML += ` <br> <b>Simulação: ${simulacao}</b> <br>
     Com nosso projeto, reduzimos o impacto da temperatura na sua perda.<br>
     Sua perda total cai de
-    <b style="color:red">${perda}%</b> para <b style="color:green">${novaPorcentagem}%</b>.<br><br>
+    <b style="color:red">${perda}%</b> para <b style="color:green">${perdaComApi}%</b>.<br><br>
 
     Isso evita o desperdício de <b>${bananasSalvas} kg</b> de bananas mensalmente.<br><br>
  
