@@ -65,15 +65,33 @@
     Sua perda total cai de
     <b style="color:red">${perda}%</b> para <b style="color:green">${perdaComApi}%</b>.<br><br>
 
-    
-    Isso evita o desperdício de <b>${bananasSalvas} kg</b> de bananas mensalmente.<br><br>
 
-    <b>R$ ${valorTotalInvestido}</b> é o valor do seu estoque. <br>
- 
-    <b style="color:red">R$ ${faturamentoAtual}</b> = Seu faturamento atual. (${perda}% de perda)<br> 
-    <b style="color:green">R$ ${faturamentoPrevisto} </b> 
+    Isso evita o desperdício de <b>${bananasSalvas.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })} kg</b> de bananas mensalmente.<br><br>
+
+    <b>${valorTotalInvestido.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })}</b> é o valor do seu estoque. <br> <br>
+
+    <b style="color:red">${faturamentoAtual.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })}</b> = Seu faturamento atual. (${perda}% de perda)<br>
+    <b style="color:green">${faturamentoPrevisto.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    })} </b>
     = Seu faturamento com <b style="color:#deb500">BananAPI</b>. (${perdaComApi}% de perda)<br>
-    Faturamento recuperado: <b style="color:green">R$ ${lucroExtra}</b> <br><br>`;
+    Faturamento recuperado: <b style="color:green">${lucroExtra.toLocaleString(
+      "pt-BR",
+      {
+        style: "currency",
+        currency: "BRL",
+      },
+    )}</b> <br><br>`;
 
     simulacao++;
   }
