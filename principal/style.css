@@ -1,17 +1,15 @@
  .container{
     display: flex;
-    gap: 180px;
+    gap: 150px;
 }
 
 
 #div_mensagem{
-    width: 700px;
+    width: 800px;
     font-size: 27px;
     color: #4B3935;
     margin-right: 15px;
 
-    
-    
 }
  
  body{

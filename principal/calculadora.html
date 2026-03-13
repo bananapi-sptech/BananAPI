@@ -11,7 +11,7 @@
     <h2>Controle sobre maturação das bananas</h2>
     <div class="container">
       <div class="caixa1">
-        <div class="perguntas">Volume mensal de bananas:</div>
+        <div class="perguntas">Entrada mensal de bananas:</div>
         <input type="number" id="input_qtdBananas" placeholder="Kg" /> <br />
         <div class="perguntas">Atual porcentagem de perda:</div>
         <input type="number" id="input_perda" placeholder="EX 40 ou 60" />
@@ -37,6 +37,10 @@
 
   function reiniciar() {
     div_mensagem.innerHTML = ``;
+    input_qtdBananas.value = ``;
+    input_perda.value = ``;
+    input_valorCompra.value = ``;
+    input_valorVenda.value = ``;
     simulacao = 1;
   }
 
